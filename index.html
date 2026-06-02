@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ConfluenceX'26 — Next Generation of Chemical Innovation. A technical fest by the Department of Chemical Engineering, VGEC Chandkheda, Ahmedabad. Register now for Paper Presentation, Poster Presentation, ChemSim Sprint & Process to Product Expo." />
+  <meta name="keywords" content="ConfluenceX 2026, VGEC, Chemical Engineering, Hackathon, Technical Fest, Ahmedabad, Paper Presentation, ChemSim" />
+  <meta property="og:title" content="ConfluenceX'26 — Next Generation of Chemical Innovation" />
+  <meta property="og:description" content="Ideas. Innovation. Impact. Technical fest by Dept. of Chemical Engineering, VGEC, Chandkheda." />
+  <title>ConfluenceX'26 | Next Generation of Chemical Innovation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo" aria-label="ConfluenceX'26 Home">
+        <span class="logo-text">Confluence<span class="logo-x">X</span><span class="logo-year">'26</span></span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks" role="list">
+        <li><a href="#about" class="nav-link" data-section="about">About</a></li>
+        <li><a href="#events" class="nav-link" data-section="events">Events</a></li>
+        <li><a href="#timeline" class="nav-link" data-section="timeline">Timeline</a></li>
+        <li><a href="#domains" class="nav-link" data-section="domains">Domains</a></li>
+        <li><a href="#team" class="nav-link" data-section="team">Team</a></li>
+        <li><a href="#sponsors" class="nav-link" data-section="sponsors">Sponsors</a></li>
+        <li><a href="#register" class="nav-link nav-register" data-section="register">Register</a></li>
+        <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section id="home" class="hero">
+    <canvas id="particleCanvas" aria-hidden="true"></canvas>
+    <div class="hero-content reveal">
+      <p class="hero-college">Vishwakarma Government Engineering College, Chandkheda, Ahmedabad</p>
+      <p class="hero-dept">Department of Chemical Engineering <span class="presents-tag">Presents</span></p>
+      <h1 class="hero-title">
+        Confluence<span class="x-letter">X</span><span class="hero-year">'26</span>
+      </h1>
+      <p class="hero-subtitle">Next Generation of Chemical Innovation</p>
+      <div class="hero-tagline">
+        <span class="tag-line-dot"></span>
+        <span>Ideas. Innovation. Impact.</span>
+        <span class="tag-line-dot"></span>
+      </div>
+      <div class="countdown-wrapper">
+        <p class="countdown-label">Final Event Day — August 1, 2026</p>
+        <div class="countdown" id="countdown" aria-live="polite">
+          <div class="cd-box"><span id="cd-days" class="cd-num">00</span><span class="cd-text">Days</span></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-box"><span id="cd-hours" class="cd-num">00</span><span class="cd-text">Hours</span></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-box"><span id="cd-mins" class="cd-num">00</span><span class="cd-text">Minutes</span></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-box"><span id="cd-secs" class="cd-num">00</span><span class="cd-text">Seconds</span></div>
+        </div>
+      </div>
+      <div class="hero-cta">
+        <a href="https://forms.gle/jVzcWSssPCdAMNyi8" target="_blank" rel="noopener noreferrer" id="hero-register-btn" class="btn btn-primary">
+          <i class="fa-solid fa-rocket" aria-hidden="true"></i> Register Now — Free!
+        </a>
+        <a href="#events" id="hero-explore-btn" class="btn btn-outline">
+          <i class="fa-solid fa-flask" aria-hidden="true"></i> Explore Events
+        </a>
+      </div>
+    </div>
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <span class="scroll-mouse"><span class="scroll-wheel"></span></span>
+      <p>Scroll to explore</p>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about" class="section about-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Who We Are</span>
+        <h2 class="section-title">About <span class="highlight">ConfluenceX'26</span></h2>
+        <p class="section-sub">A confluence of ideas, innovation, and impact — where future chemical innovators meet.</p>
+      </div>
+      <div class="about-grid">
+        <div class="glass-card reveal about-card">
+          <div class="about-icon"><i class="fa-solid fa-building-columns" aria-hidden="true"></i></div>
+          <h3>About VGEC</h3>
+          <p>Vishwakarma Government Engineering College fosters a vibrant culture of innovation, creativity and entrepreneurship, where students are encouraged to think beyond boundaries and transform ideas into impactful solutions. The institute provides a dynamic environment that promotes research, collaboration and problem-solving through modern learning practices and technical excellence.</p>
+        </div>
+        <div class="glass-card reveal about-card delay-1">
+          <div class="about-icon"><i class="fa-solid fa-flask-vial" aria-hidden="true"></i></div>
+          <h3>Department of Chemical Engineering</h3>
+          <p>The Chemical Engineering Department at VGEC promotes a strong culture of innovation, research and practical learning, encouraging students to develop sustainable and industry-oriented solutions for real-world challenges. Through advanced laboratories, technical training, research activities and collaborative projects, students gain hands-on experience and analytical skills essential for modern chemical engineering.</p>
+        </div>
+      </div>
+      <!-- Stats -->
+      <div class="stats-grid reveal delay-2">
+        <div class="stat-item">
+          <span class="stat-num" data-target="500">0</span><span class="stat-plus">+</span>
+          <p>Expected Participants</p>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num" data-target="4">0</span>
+          <p>Unique Events</p>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num" data-target="8">0</span>
+          <p>Research Domains</p>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num" data-target="100">0</span><span class="stat-plus">%</span>
+          <p>Certificates Awarded</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EVENTS ===== -->
+  <section id="events" class="section events-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">What's In Store</span>
+        <h2 class="section-title">Events Under <span class="highlight">ConfluenceX'26</span></h2>
+        <p class="section-sub">Four distinct competitions designed to challenge your mind and showcase your brilliance.</p>
+      </div>
+      <div class="events-grid">
+        <!-- Event 1 -->
+        <article class="event-card reveal" id="event-process">
+          <div class="event-num">01</div>
+          <div class="event-icon-wrap">
+            <i class="fa-solid fa-industry" aria-hidden="true"></i>
+          </div>
+          <h3>Process to Product Expo</h3>
+          <p>Demonstrate working models, prototypes, industrial processes and innovative product ideas that bridge the gap between theory and application.</p>
+          <div class="event-tag-badge"><i class="fa-solid fa-gear" aria-hidden="true"></i> Innovation</div>
+        </article>
+        <!-- Event 2 -->
+        <article class="event-card reveal delay-1" id="event-chemsim">
+          <div class="event-num">02</div>
+          <div class="event-icon-wrap">
+            <i class="fa-solid fa-computer" aria-hidden="true"></i>
+          </div>
+          <h3>ChemSim Sprint</h3>
+          <p>Solve process simulation challenges using DWSIM software within a limited time framework. Test your simulation skills under pressure!</p>
+          <div class="event-tag-badge"><i class="fa-solid fa-clock" aria-hidden="true"></i> Timed Challenge</div>
+        </article>
+        <!-- Event 3 -->
+        <article class="event-card reveal delay-2" id="event-paper">
+          <div class="event-num">03</div>
+          <div class="event-icon-wrap">
+            <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+          </div>
+          <h3>Paper Presentation</h3>
+          <p>Present your technical papers, innovative ideas and research findings through professional oral presentations to a panel of expert judges.</p>
+          <div class="event-tag-badge"><i class="fa-solid fa-microphone" aria-hidden="true"></i> Research</div>
+        </article>
+        <!-- Event 4 -->
+        <article class="event-card reveal delay-3" id="event-poster">
+          <div class="event-num">04</div>
+          <div class="event-icon-wrap">
+            <i class="fa-solid fa-image" aria-hidden="true"></i>
+          </div>
+          <h3>Poster Presentation</h3>
+          <p>Showcase your concepts, projects and research work creatively through impactful poster displays. Poster size: A2 (420 mm × 594 mm).</p>
+          <div class="event-tag-badge"><i class="fa-solid fa-palette" aria-hidden="true"></i> Creative</div>
+        </article>
+      </div>
+
+      <!-- Highlights Row -->
+      <div class="highlights-section reveal delay-2">
+        <h3 class="highlights-title"><i class="fa-solid fa-star" aria-hidden="true"></i> Event Highlights</h3>
+        <div class="highlights-grid">
+          <div class="highlight-item"><i class="fa-solid fa-lightbulb"></i><span>Showcase innovative ideas & research</span></div>
+          <div class="highlight-item"><i class="fa-solid fa-users"></i><span>Interact with experts & academicians</span></div>
+          <div class="highlight-item"><i class="fa-solid fa-network-wired"></i><span>Technical learning & networking</span></div>
+          <div class="highlight-item"><i class="fa-solid fa-certificate"></i><span>Certificates for all participants</span></div>
+          <div class="highlight-item"><i class="fa-solid fa-trophy"></i><span>Exciting prizes for top performers</span></div>
+          <div class="highlight-item"><i class="fa-solid fa-industry"></i><span>Exposure to real-world engineering</span></div>
+          <div class="highlight-item"><i class="fa-solid fa-tag"></i><span>IDEA Submission is FREE</span></div>
+          <div class="highlight-item"><i class="fa-solid fa-graduation-cap"></i><span>UG, PG &amp; Diploma eligible</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TIMELINE ===== -->
+  <section id="timeline" class="section timeline-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Mark Your Calendar</span>
+        <h2 class="section-title">Event <span class="highlight">Timeline</span></h2>
+        <p class="section-sub">From registration to the final event — here's your roadmap to ConfluenceX'26.</p>
+      </div>
+      <div class="timeline-wrapper">
+        <div class="timeline-line" aria-hidden="true"></div>
+
+        <div class="timeline-step reveal" id="ts1">
+          <div class="ts-marker"><span>1</span></div>
+          <div class="ts-content glass-card">
+            <div class="ts-date"><i class="fa-solid fa-calendar-days"></i> May 15 – June 20, 2026</div>
+            <h3>Registration Opens</h3>
+            <p>Register yourself and become a part of the ConfluenceX'26 journey. Registration is completely free — don't miss out!</p>
+            <a href="https://forms.gle/jVzcWSssPCdAMNyi8" target="_blank" rel="noopener noreferrer" class="ts-action-btn" id="ts-reg-btn">Register Now →</a>
+          </div>
+        </div>
+
+        <div class="timeline-step reveal delay-1" id="ts2">
+          <div class="ts-marker"><span>2</span></div>
+          <div class="ts-content glass-card">
+            <div class="ts-date"><i class="fa-solid fa-calendar-days"></i> From June 20, 2026</div>
+            <h3>Online Round Begins</h3>
+            <p>Evaluations and preliminary screenings will be conducted online by our expert panel. Shortlisted candidates proceed to the next round.</p>
+          </div>
+        </div>
+
+        <div class="timeline-step reveal delay-2" id="ts3">
+          <div class="ts-marker"><span>3</span></div>
+          <div class="ts-content glass-card">
+            <div class="ts-date"><i class="fa-solid fa-calendar-days"></i> Throughout July 2026</div>
+            <h3>Final Submission</h3>
+            <p>Shortlisted participants are required to submit their final presentations and project materials for comprehensive evaluation by the committee.</p>
+          </div>
+        </div>
+
+        <div class="timeline-step reveal delay-3" id="ts4">
+          <div class="ts-marker ts-final"><span><i class="fa-solid fa-flag-checkered"></i></span></div>
+          <div class="ts-content glass-card ts-highlight">
+            <div class="ts-date ts-date-gold"><i class="fa-solid fa-calendar-check"></i> August 1, 2026</div>
+            <h3>🎉 Final Event Day</h3>
+            <p>Top participants will present their innovative work at VGEC, Chandkheda. Experience the grand finale of ConfluenceX'26!</p>
+            <div class="ts-venue-badge"><i class="fa-solid fa-location-dot"></i> VGEC Campus, Chandkheda, Ahmedabad</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DOMAINS ===== -->
+  <section id="domains" class="section domains-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Research Areas</span>
+        <h2 class="section-title">Domains &amp; <span class="highlight">Themes</span></h2>
+        <p class="section-sub">Submit your work across these cutting-edge chemical engineering domains.</p>
+      </div>
+      <div class="domains-grid reveal">
+        <div class="domain-pill delay-0"><i class="fa-solid fa-chart-line"></i><span>Process Design &amp; Simulation</span></div>
+        <div class="domain-pill delay-1"><i class="fa-solid fa-leaf"></i><span>Sustainable Chemical Processes</span></div>
+        <div class="domain-pill delay-2"><i class="fa-solid fa-bolt"></i><span>Energy &amp; Environment</span></div>
+        <div class="domain-pill delay-3"><i class="fa-solid fa-atom"></i><span>Nanotechnology &amp; Advanced Materials</span></div>
+        <div class="domain-pill delay-0"><i class="fa-solid fa-dna"></i><span>Biochemical &amp; Bioprocess Engineering</span></div>
+        <div class="domain-pill delay-1"><i class="fa-solid fa-flask"></i><span>Catalysis &amp; Reaction Engineering</span></div>
+        <div class="domain-pill delay-2"><i class="fa-solid fa-filter"></i><span>Separation Processes</span></div>
+        <div class="domain-pill delay-3"><i class="fa-solid fa-shield-halved"></i><span>Industrial Safety &amp; Risk Management</span></div>
+      </div>
+
+      <!-- Who Can Participate -->
+      <div class="participate-banner glass-card reveal delay-2">
+        <div class="participate-icon"><i class="fa-solid fa-users-between-lines" aria-hidden="true"></i></div>
+        <div class="participate-text">
+          <h3>Who Can Participate?</h3>
+          <p>Open to <strong>UG, PG, and Diploma</strong> students from <strong>all engineering institutes</strong> across India.</p>
+        </div>
+        <div class="participate-badges">
+          <span class="part-badge">UG</span>
+          <span class="part-badge">PG</span>
+          <span class="part-badge">Diploma</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRIZES & GUIDELINES ===== -->
+  <section id="prizes" class="section prizes-section">
+    <div class="container">
+      <div class="prizes-split">
+        <!-- Prizes -->
+        <div class="prize-col reveal">
+          <div class="section-header-left">
+            <span class="section-tag">Rewards</span>
+            <h2 class="section-title">Prizes &amp; <span class="highlight">Certificates</span></h2>
+          </div>
+          <div class="prize-cards">
+            <div class="prize-card glass-card">
+              <i class="fa-solid fa-trophy prize-trophy" aria-hidden="true"></i>
+              <h3>Exciting Prizes</h3>
+              <p>Outstanding performers in all events will receive exciting prizes and recognition from the panel of expert judges.</p>
+            </div>
+            <div class="prize-card glass-card">
+              <i class="fa-solid fa-certificate prize-cert" aria-hidden="true"></i>
+              <h3>Certificates for All</h3>
+              <p>Every participant who registers and submits will receive an official participation certificate from VGEC, Chemical Engineering Department.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Guidelines -->
+        <div class="guide-col reveal delay-1">
+          <div class="section-header-left">
+            <span class="section-tag">Rules</span>
+            <h2 class="section-title">Important <span class="highlight">Guidelines</span></h2>
+          </div>
+          <ul class="guidelines-list" role="list">
+            <li class="guideline-item">
+              <span class="gi-icon"><i class="fa-solid fa-circle-check"></i></span>
+              <span>Original and unpublished work only</span>
+            </li>
+            <li class="guideline-item">
+              <span class="gi-icon"><i class="fa-solid fa-circle-check"></i></span>
+              <span>Plagiarism is strictly prohibited</span>
+            </li>
+            <li class="guideline-item">
+              <span class="gi-icon"><i class="fa-solid fa-circle-check"></i></span>
+              <span>Poster size: A2 (420 mm × 594 mm)</span>
+            </li>
+            <li class="guideline-item">
+              <span class="gi-icon"><i class="fa-solid fa-circle-check"></i></span>
+              <span>Time limit for presentations will be notified later</span>
+            </li>
+            <li class="guideline-item">
+              <span class="gi-icon"><i class="fa-solid fa-circle-check"></i></span>
+              <span>Evaluation committee decision is final &amp; binding</span>
+            </li>
+            <li class="guideline-item">
+              <span class="gi-icon"><i class="fa-solid fa-circle-check"></i></span>
+              <span>Detailed guidelines shared after registration</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TEAM ===== -->
+  <section id="team" class="section team-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">The People Behind It</span>
+        <h2 class="section-title">Our <span class="highlight">Team</span></h2>
+        <p class="section-sub">Distinguished faculty and dedicated students making ConfluenceX'26 possible.</p>
+      </div>
+
+      <!-- Patron Row -->
+      <div class="team-tier reveal">
+        <h3 class="tier-title"><i class="fa-solid fa-crown"></i> Chief Patron &amp; Patron</h3>
+        <div class="patron-grid">
+          <div class="person-card glass-card chief">
+            <div class="person-avatar"><i class="fa-solid fa-user-tie"></i></div>
+            <div class="person-badge">Chief Patron</div>
+            <h4>Dr. Vinay S. Purani</h4>
+            <p>Principal, VGEC, Chandkheda</p>
+          </div>
+          <div class="person-card glass-card">
+            <div class="person-avatar"><i class="fa-solid fa-user-tie"></i></div>
+            <div class="person-badge">Patron</div>
+            <h4>Dr. Femina J. Patel</h4>
+            <p>Head, Chemical Engineering Department, VGEC, Chandkheda</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Faculty Coordinators -->
+      <div class="team-tier reveal delay-1">
+        <h3 class="tier-title"><i class="fa-solid fa-chalkboard-user"></i> Faculty Coordinators</h3>
+        <div class="patron-grid">
+          <div class="person-card glass-card">
+            <div class="person-avatar faculty-avatar"><i class="fa-solid fa-microscope"></i></div>
+            <div class="person-badge faculty-badge">Faculty Coordinator</div>
+            <h4>Dr. Hiral N. Pandya</h4>
+            <p>Associate Professor, Chemical Engineering Department, VGEC, Chandkheda</p>
+          </div>
+          <div class="person-card glass-card">
+            <div class="person-avatar faculty-avatar"><i class="fa-solid fa-microscope"></i></div>
+            <div class="person-badge faculty-badge">Faculty Coordinator</div>
+            <h4>Dr. Sonal S. Bhagat</h4>
+            <p>Assistant Professor, Chemical Engineering Department, VGEC, Chandkheda</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Student Coordinators -->
+      <div class="team-tier reveal delay-2">
+        <h3 class="tier-title"><i class="fa-solid fa-user-graduate"></i> Overall Student Coordinators</h3>
+        <div class="patron-grid">
+          <div class="person-card glass-card student-card">
+            <div class="person-avatar student-avatar"><i class="fa-solid fa-user-graduate"></i></div>
+            <div class="person-badge student-badge">Student Coordinator</div>
+            <h4>Jenisha Hemnani</h4>
+            <p>4th Year, Chemical Engineering, VGEC</p>
+            <a href="tel:9145996206" class="person-contact" id="contact-jenisha"><i class="fa-solid fa-phone"></i> 9145996206</a>
+          </div>
+          <div class="person-card glass-card student-card">
+            <div class="person-avatar student-avatar"><i class="fa-solid fa-user-graduate"></i></div>
+            <div class="person-badge student-badge">Student Coordinator</div>
+            <h4>Nimi Jha</h4>
+            <p>4th Year, Chemical Engineering, VGEC</p>
+            <a href="tel:9836523466" class="person-contact" id="contact-nimi"><i class="fa-solid fa-phone"></i> 9836523466</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Organizing Committee -->
+      <div class="team-tier reveal delay-1">
+        <h3 class="tier-title"><i class="fa-solid fa-sitemap"></i> Organizing Committee</h3>
+        <div class="committee-table-wrap">
+          <table class="committee-table" role="table">
+            <thead>
+              <tr>
+                <th scope="col">Team</th>
+                <th scope="col">Members</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><i class="fa-solid fa-handshake"></i> Sponsorship Team</td><td>Prof. Z. Z. Painter &amp; Prof. G. D. Vegad</td></tr>
+              <tr><td><i class="fa-solid fa-sack-dollar"></i> Finance Team</td><td>Dr. S. R. Patel</td></tr>
+              <tr><td><i class="fa-solid fa-clipboard-list"></i> Registration &amp; Food Team</td><td>Prof. J. B. Trivedi &amp; Prof. R. R. Merchant</td></tr>
+              <tr><td><i class="fa-solid fa-bullhorn"></i> Promotion &amp; Designing Team</td><td>Dr. S. S. Bhagat &amp; Dr. H. N. Pandya</td></tr>
+              <tr><td><i class="fa-solid fa-screwdriver-wrench"></i> Technical &amp; Stage Management</td><td>Dr. B. K. Acharya &amp; Dr. U. P. Christian</td></tr>
+              <tr><td><i class="fa-solid fa-bed"></i> Accommodation Team</td><td>Prof. Y. J. Morabiya</td></tr>
+              <tr><td><i class="fa-solid fa-people-group"></i> Volunteer Team</td><td>Dr. S. S. Bhagat</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SPONSORS ===== -->
+  <section id="sponsors" class="section sponsors-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Industry-Academia Partnership</span>
+        <h2 class="section-title">Become a <span class="highlight">Sponsor</span></h2>
+        <p class="section-sub">"Partner with purpose, inspire innovation" — Reach 500+ engineering students from premier institutes across India.</p>
+      </div>
+
+      <!-- Why Sponsor -->
+      <div class="why-sponsor reveal">
+        <div class="why-item glass-card"><i class="fa-solid fa-users"></i><span>Reach 500+ students from premier institutes</span></div>
+        <div class="why-item glass-card"><i class="fa-solid fa-eye"></i><span>Enhance brand visibility among future engineers</span></div>
+        <div class="why-item glass-card"><i class="fa-solid fa-handshake"></i><span>Strengthen industry-academia collaboration</span></div>
+        <div class="why-item glass-card"><i class="fa-solid fa-leaf"></i><span>Support innovation, sustainability &amp; advancement</span></div>
+        <div class="why-item glass-card"><i class="fa-solid fa-circle-dollar-to-slot"></i><span>Initiative included in CSR activities</span></div>
+      </div>
+
+      <!-- Sponsorship Tiers -->
+      <div class="sponsor-tiers reveal delay-1">
+        <div class="sponsor-tier-card title-tier glass-card">
+          <div class="tier-gem">💎</div>
+          <div class="tier-name">Title Sponsor</div>
+          <div class="tier-amount">₹1,00,000</div>
+          <ul class="tier-benefits">
+            <li>Logo on all materials</li>
+            <li>Inauguration recognition (Chief Guest)</li>
+            <li>Stall at event</li>
+            <li>Proceedings Back Cover (Full Page, Color)</li>
+          </ul>
+        </div>
+        <div class="sponsor-tier-card gold-tier glass-card">
+          <div class="tier-gem">🥇</div>
+          <div class="tier-name">Gold Sponsor</div>
+          <div class="tier-amount">₹50,000</div>
+          <ul class="tier-benefits">
+            <li>Logo on Certificate, T-Shirt, Brochure, Banner</li>
+            <li>Delegate Kit, Lanyard &amp; ID Card</li>
+            <li>Stall at event</li>
+            <li>Proceedings Inside Front Cover (Full Page)</li>
+          </ul>
+        </div>
+        <div class="sponsor-tier-card silver-tier glass-card">
+          <div class="tier-gem">🥈</div>
+          <div class="tier-name">Silver Sponsor</div>
+          <div class="tier-amount">₹30,000</div>
+          <ul class="tier-benefits">
+            <li>Logo on Certificate, Brochure &amp; Banner</li>
+            <li>Stall at event</li>
+            <li>Proceedings Inside Back Cover (Full Page)</li>
+          </ul>
+        </div>
+        <div class="sponsor-tier-card bronze-tier glass-card">
+          <div class="tier-gem">🥉</div>
+          <div class="tier-name">Bronze Sponsor</div>
+          <div class="tier-amount">₹20,000</div>
+          <ul class="tier-benefits">
+            <li>Logo on banners and brochure</li>
+            <li>Proceedings Quarter Page (any internal page)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Activity Specific Sponsors -->
+      <div class="activity-sponsors reveal delay-2">
+        <h3 class="activity-title">Activity-Specific Sponsorship Opportunities</h3>
+        <div class="activity-grid">
+          <div class="activity-item glass-card"><i class="fa-solid fa-id-card"></i><span>Lanyard &amp; ID Card Sponsor</span></div>
+          <div class="activity-item glass-card"><i class="fa-solid fa-shirt"></i><span>T-Shirt Sponsor</span></div>
+          <div class="activity-item glass-card"><i class="fa-solid fa-mug-hot"></i><span>Breakfast / High Tea Sponsor</span></div>
+          <div class="activity-item glass-card"><i class="fa-solid fa-trophy"></i><span>Prize Sponsor</span></div>
+          <div class="activity-item glass-card"><i class="fa-solid fa-utensils"></i><span>Lunch Sponsor</span></div>
+          <div class="activity-item glass-card"><i class="fa-solid fa-star"></i><span>Event-Specific Sponsor</span></div>
+          <div class="activity-item glass-card"><i class="fa-solid fa-briefcase"></i><span>Delegate Kit Sponsor</span></div>
+          <div class="activity-item glass-card"><i class="fa-solid fa-chalkboard-user"></i><span>Technical Session Sponsor</span></div>
+          <div class="activity-item glass-card"><i class="fa-solid fa-droplet"></i><span>Water &amp; Refreshment Sponsor</span></div>
+        </div>
+      </div>
+
+      <!-- Payment Details -->
+      <div class="payment-box glass-card reveal delay-2">
+        <h3><i class="fa-solid fa-building-columns"></i> Payment Details</h3>
+        <div class="payment-grid">
+          <div class="payment-row"><span class="pay-label">Beneficiary Name</span><span class="pay-val">PRINCIPAL-VGEC</span></div>
+          <div class="payment-row"><span class="pay-label">Bank Name</span><span class="pay-val">State Bank of India</span></div>
+          <div class="payment-row"><span class="pay-label">Account Number</span><span class="pay-val">33724527065</span></div>
+          <div class="payment-row"><span class="pay-label">IFSC Code</span><span class="pay-val">SBIN0011770</span></div>
+          <div class="payment-row"><span class="pay-label">Branch</span><span class="pay-val">State Bank of India, IIT Gandhinagar</span></div>
+        </div>
+        <p class="pay-note">You can pay via Net Banking or Cheque addressed to <strong>PRINCIPAL, VGEC</strong>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== REGISTER ===== -->
+  <section id="register" class="section register-section">
+    <div class="register-bg" aria-hidden="true"></div>
+    <div class="container">
+      <div class="register-content reveal">
+        <span class="section-tag">Join the Revolution</span>
+        <h2 class="register-title">Ready to <span class="highlight">Innovate?</span></h2>
+        <p class="register-sub">Registration is open from <strong>May 15 to June 20, 2026</strong>. IDEA Submission is completely <strong>FREE!</strong></p>
+        <div class="register-info-chips">
+          <span class="info-chip"><i class="fa-solid fa-calendar"></i> May 15 – June 20, 2026</span>
+          <span class="info-chip"><i class="fa-solid fa-location-dot"></i> VGEC, Chandkheda</span>
+          <span class="info-chip"><i class="fa-solid fa-tag"></i> 100% Free</span>
+        </div>
+        <a href="https://forms.gle/jVzcWSssPCdAMNyi8" target="_blank" rel="noopener noreferrer" id="main-register-btn" class="btn btn-primary btn-xl">
+          <i class="fa-solid fa-rocket" aria-hidden="true"></i> Register Now — It's Free!
+        </a>
+        <p class="reg-form-link">Or visit: <a href="https://forms.gle/jVzcWSssPCdAMNyi8" target="_blank" rel="noopener noreferrer" id="reg-form-link">https://forms.gle/jVzcWSssPCdAMNyi8</a></p>
+
+        <!-- QR Code Card -->
+        <div class="qr-card glass-card reveal delay-2">
+          <div class="qr-left">
+            <div class="qr-label"><i class="fa-solid fa-qrcode"></i> Scan to Register</div>
+            <a href="https://forms.gle/jVzcWSssPCdAMNyi8" target="_blank" rel="noopener noreferrer" id="qr-code-link" class="qr-img-wrap" aria-label="Scan QR code to register">
+              <img
+                src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&color=7c3aed&bgcolor=04091a&data=https://forms.gle/jVzcWSssPCdAMNyi8"
+                alt="QR Code for ConfluenceX'26 Registration"
+                class="qr-img"
+                width="180" height="180"
+                loading="lazy"
+              />
+            </a>
+          </div>
+          <div class="qr-right">
+            <h4>Quick Register via QR</h4>
+            <p>Point your phone camera at the QR code to instantly open the registration form — no typing needed!</p>
+            <div class="qr-steps">
+              <div class="qr-step"><span class="qr-num">1</span><span>Open your phone camera</span></div>
+              <div class="qr-step"><span class="qr-num">2</span><span>Point at the QR code</span></div>
+              <div class="qr-step"><span class="qr-num">3</span><span>Tap the link &amp; register!</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact" class="section contact-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Get In Touch</span>
+        <h2 class="section-title">Contact <span class="highlight">&amp; Venue</span></h2>
+        <p class="section-sub">For queries and registration assistance, feel free to connect with us.</p>
+      </div>
+      <div class="contact-grid">
+        <!-- Contact Info -->
+        <div class="contact-info reveal">
+          <div class="contact-card glass-card">
+            <h3><i class="fa-solid fa-location-dot"></i> Venue</h3>
+            <p>Chemical Engineering Department,<br/>Vishwakarma Government Engineering College,<br/>Chandkheda, Ahmedabad, Gujarat – 382424</p>
+            <a href="https://www.google.co.in/maps/place/Chemical+Engineering+Department,+VGEC,+Chandkheda/@23.1071546,72.5949579,17z/data=!3m1!4b1!4m6!3m5!1s0x395e83cbb6e308d9:0x80721e4be507725e!8m2!3d23.1071546!4d72.5949579!16s%2Fg%2F11c2mkrhcv" target="_blank" rel="noopener noreferrer" id="maps-link" class="contact-action-btn">
+              <i class="fa-solid fa-map-location-dot"></i> Open in Maps
+            </a>
+          </div>
+          <div class="contact-card glass-card">
+            <h3><i class="fa-solid fa-envelope"></i> Email</h3>
+            <a href="mailto:confluence26@gmail.com" id="email-link" class="contact-email">confluence26@gmail.com</a>
+          </div>
+          <div class="contact-social glass-card">
+            <h3>Connect With Us</h3>
+            <div class="social-links">
+              <a href="https://www.instagram.com/vgec.official?igsh=c3Y2Zmk1aW1oaGN4" target="_blank" rel="noopener noreferrer" id="social-instagram" class="social-btn instagram" aria-label="Instagram">
+                <i class="fa-brands fa-instagram"></i><span>Instagram</span>
+              </a>
+              <a href="https://www.linkedin.com/school/vishwakarma-government-engineering-college-chandkheda-gandhinagar-017/" target="_blank" rel="noopener noreferrer" id="social-linkedin" class="social-btn linkedin" aria-label="LinkedIn">
+                <i class="fa-brands fa-linkedin"></i><span>LinkedIn</span>
+              </a>
+              <a href="https://chat.whatsapp.com/IbFNnwsNxMA0jFcOmDURJr" target="_blank" rel="noopener noreferrer" id="social-whatsapp" class="social-btn whatsapp" aria-label="WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span>
+              </a>
+              <a href="mailto:confluence26@gmail.com" id="social-gmail" class="social-btn gmail" aria-label="Gmail">
+                <i class="fa-solid fa-envelope"></i><span>Gmail</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Map embed placeholder -->
+        <div class="map-wrap reveal delay-1">
+          <div class="map-card glass-card">
+            <div class="map-header">
+              <h3><i class="fa-solid fa-map"></i> Find Us Here</h3>
+            </div>
+            <div class="map-frame-wrap">
+              <iframe
+                title="Chemical Engineering Department, VGEC Chandkheda"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3669.8!2d72.5949579!3d23.1071546!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e83cbb6e308d9%3A0x80721e4be507725e!2sChemical%20Engineering%20Department%2C%20VGEC%2C%20Chandkheda!5e0!3m2!1sen!2sin!4v1749043200000"
+                width="100%" height="300" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+              </iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="footer-logo">Confluence<span class="logo-x">X</span><span class="logo-year">'26</span></span>
+          <p>Next Generation of Chemical Innovation</p>
+          <p class="footer-college">Dept. of Chemical Engineering, VGEC, Chandkheda, Ahmedabad</p>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <a href="#about">About</a>
+          <a href="#events">Events</a>
+          <a href="#timeline">Timeline</a>
+          <a href="#domains">Domains</a>
+          <a href="#team">Team</a>
+          <a href="#sponsors">Sponsors</a>
+          <a href="#register">Register</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <p><i class="fa-solid fa-envelope"></i> confluence26@gmail.com</p>
+          <p><i class="fa-solid fa-location-dot"></i> VGEC, Chandkheda, Ahmedabad</p>
+          <p><i class="fa-solid fa-calendar-days"></i> Event: August 1, 2026</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 ConfluenceX'26 · Ideas. Innovation. Impact. · Dept. of Chemical Engineering, VGEC</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">
+    <i class="fa-solid fa-chevron-up" aria-hidden="true"></i>
+  </button>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
