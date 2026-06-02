@@ -584,5 +584,508 @@ console.log('%cConfluenceX\'26 🚀 Next Generation of Chemical Innovation', 'co
   }
 })();
 
+/* ============================================
+   VIRTUAL CHEMLAB SIMULATOR
+   ============================================ */
+(function initChemLab() {
+  const canvas = document.getElementById('reactorCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  // Sliders & UI Elements
+  const tempSlider = document.getElementById('temp-slider');
+  const catSlider = document.getElementById('cat-slider');
+  const tempVal = document.getElementById('temp-val');
+  const catVal = document.getElementById('cat-val');
+  const tempOptLabel = document.getElementById('temp-opt-label');
+  const catOptLabel = document.getElementById('cat-opt-label');
+  
+  const yieldVal = document.getElementById('yield-val');
+  const rateVal = document.getElementById('rate-val');
+  const yieldFeedback = document.getElementById('yield-feedback');
+  const rateFeedback = document.getElementById('rate-feedback');
+  
+  const reactorStatus = document.getElementById('reactor-status');
+  const reactorPulse = document.getElementById('reactor-pulse');
+  const equationEl = document.getElementById('reaction-equation');
+  const descEl = document.getElementById('reaction-desc');
+
+  const presetBtns = document.querySelectorAll('.preset-btn');
+
+  // Reaction presets config
+  const presets = {
+    aspirin: {
+      name: 'Aspirin Synthesis',
+      equation: 'C₇H₆O₃ (Salicylic) + C₄H₆O₃ → C₉H₈O₄ (Aspirin) + CH₃COOH',
+      desc: 'Aspirin synthesis is moderately exothermic. Requires low-to-moderate temperature and acid catalyst concentration to prevent decomposition.',
+      optTemp: 75,
+      optCat: 35,
+      tempRange: [30, 500],
+      catRange: [0, 100],
+      maxRate: 0.12,
+      particleColor: '#f3e8ff', // pink/white
+    },
+    hydrogen: {
+      name: 'Green Hydrogen Production',
+      equation: '2H₂O (Liquid) + Electricity → 2H₂ (Gas) + O₂ (Gas)',
+      desc: 'Electrolysis of water. Reaction rate increases exponentially with temperature (improving ion mobility) and catalyst/electrolyte concentration.',
+      optTemp: 400,
+      optCat: 85,
+      tempRange: [30, 500],
+      catRange: [0, 100],
+      maxRate: 0.85,
+      particleColor: '#06b6d4', // cyan gas
+    },
+    ethanol: {
+      name: 'Bio-Ethanol Fermentation',
+      equation: 'C₆H₁₂O₆ (Glucose) + Yeast → 2C₂H₅OH (Ethanol) + 2CO₂',
+      desc: 'Biological fermentation using yeast enzymes. Highly sensitive to heat — yeast enzymes denature above 45°C, and yeast is dormant below 20°C.',
+      optTemp: 35,
+      optCat: 12,
+      tempRange: [30, 500],
+      catRange: [0, 100],
+      maxRate: 0.04,
+      particleColor: '#f59e0b', // golden yellow
+    }
+  };
+
+  let currentReaction = 'aspirin';
+  let temp = parseInt(tempSlider.value, 10);
+  let catalyst = parseInt(catSlider.value, 10);
+
+  // Setup presets configuration labels
+  function updatePresetLabels() {
+    const config = presets[currentReaction];
+    equationEl.textContent = config.equation;
+    descEl.textContent = config.desc;
+    tempOptLabel.textContent = `Target: ${config.optTemp}°C`;
+    catOptLabel.textContent = `Target: ${config.optCat}%`;
+  }
+
+  // Preset button listeners
+  presetBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      presetBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentReaction = btn.dataset.reaction;
+      
+      // Reset sliders to some default within ranges or preset targets
+      if (currentReaction === 'aspirin') {
+        tempSlider.value = 80;
+        catSlider.value = 30;
+      } else if (currentReaction === 'hydrogen') {
+        tempSlider.value = 350;
+        catSlider.value = 75;
+      } else {
+        tempSlider.value = 30;
+        catSlider.value = 10;
+      }
+      
+      temp = parseInt(tempSlider.value, 10);
+      catalyst = parseInt(catSlider.value, 10);
+      
+      tempVal.textContent = temp;
+      catVal.textContent = catalyst;
+      
+      updatePresetLabels();
+      updateSimulation();
+    });
+  });
+
+  // Sliders listeners
+  tempSlider.addEventListener('input', () => {
+    temp = parseInt(tempSlider.value, 10);
+    tempVal.textContent = temp;
+    updateSimulation();
+  });
+
+  catSlider.addEventListener('input', () => {
+    catalyst = parseInt(catSlider.value, 10);
+    catVal.textContent = catalyst;
+    updateSimulation();
+  });
+
+  // Reaction Math State
+  let yieldPercentage = 0;
+  let reactionRate = 0;
+  let statusText = 'Reactor Operating: Stable';
+  let statusColorClass = 'active'; // active, warning, danger
+  let coreGlowColor = 'rgba(124,58,237,0.3)';
+
+  function updateSimulation() {
+    const config = presets[currentReaction];
+    let T = temp;
+    let C = catalyst;
+    
+    let curYield = 0;
+    let curRate = 0;
+    let state = 'Reactor Operating: Stable';
+    let statusClass = 'active';
+    
+    // Core color calculations based on Temp
+    if (T < 100) {
+      coreGlowColor = `rgba(6, 182, 212, ${T / 100 * 0.4})`; // Cold (cyan)
+    } else if (T < 250) {
+      coreGlowColor = `rgba(168, 85, 247, 0.4)`; // Warm (purple)
+    } else {
+      coreGlowColor = `rgba(239, 68, 68, ${Math.min(0.8, 0.4 + (T - 250) / 250 * 0.4)})`; // Hot (red)
+    }
+
+    if (currentReaction === 'aspirin') {
+      if (T > 160) {
+        curYield = 0;
+        curRate = 0;
+        state = 'Critical: Aspirin Decomposed!';
+        statusClass = 'danger';
+      } else {
+        // Gaussian bell curve for Temperature (optimal 75)
+        const tDiff = Math.abs(T - 75);
+        const tFactor = Math.max(0, 1 - (tDiff / 40)); // drops to 0 at 35 or 115
+        
+        // Gaussian bell curve for Catalyst (optimal 35)
+        const cDiff = Math.abs(C - 35);
+        const cFactor = Math.max(0, 1 - (cDiff / 25)); // drops to 0 at 10 or 60
+        
+        curYield = Math.round(100 * tFactor * cFactor);
+        curRate = config.maxRate * tFactor * cFactor;
+        
+        if (curYield > 85) {
+          state = 'Optimal Synthesis Rate';
+        } else if (curYield > 40) {
+          state = 'Reaction Active (Sub-optimal)';
+          statusClass = 'warning';
+        } else {
+          state = 'Reactor Idle: Low Kinetics';
+          statusClass = 'warning';
+        }
+      }
+    } 
+    else if (currentReaction === 'hydrogen') {
+      if (T > 460) {
+        state = 'Overheating Warning: High Pressure!';
+        statusClass = 'warning';
+      }
+      
+      // Needs high temperature and high catalyst
+      const tFactor = Math.max(0, Math.min(1, (T - 150) / 250)); // starts at 150, max at 400
+      const cFactor = Math.max(0, Math.min(1, C / 85)); // max at 85
+      
+      // Calculate closeness to target for perfect 100% yield
+      const tDiff = Math.abs(T - 400);
+      const tOptimal = Math.max(0, 1 - (tDiff / 100)); // tight peak
+      const cDiff = Math.abs(C - 85);
+      const cOptimal = Math.max(0, 1 - (cDiff / 20));
+      
+      const perfectFactor = tOptimal * cOptimal;
+      curYield = Math.round(70 * tFactor * cFactor + 30 * perfectFactor);
+      curYield = Math.max(0, Math.min(100, curYield));
+      
+      curRate = config.maxRate * tFactor * cFactor;
+      
+      if (curYield > 90) {
+        state = 'Peak Hydrogen Production';
+        if (statusClass !== 'warning') statusClass = 'active';
+      } else if (curYield > 40) {
+        state = 'Synthesis Active';
+        if (statusClass !== 'warning') statusClass = 'active';
+      } else {
+        state = 'Insufficient Cell Voltage / Temp';
+        statusClass = 'warning';
+      }
+    } 
+    else if (currentReaction === 'ethanol') {
+      if (T > 45) {
+        curYield = 0;
+        curRate = 0;
+        state = 'Enzymes Denatured: Yeast Dead!';
+        statusClass = 'danger';
+      } else if (T < 22) {
+        curYield = 0;
+        curRate = 0;
+        state = 'Inactive: Cold Dormancy';
+        statusClass = 'warning';
+      } else {
+        // Very tight optimal range for biological processes
+        const tDiff = Math.abs(T - 35);
+        const tFactor = Math.max(0, 1 - (tDiff / 10)); // drops to 0 at 25 or 45
+        
+        const cDiff = Math.abs(C - 12);
+        const cFactor = Math.max(0, 1 - (cDiff / 10)); // drops to 0 at 2 or 22
+        
+        curYield = Math.round(100 * tFactor * cFactor);
+        curRate = config.maxRate * tFactor * cFactor;
+        
+        if (curYield > 90) {
+          state = 'Optimal Fermentation Rate';
+        } else if (curYield > 45) {
+          state = 'Active Fermentation';
+        } else {
+          state = 'Struggling Culture: Check Temp';
+          statusClass = 'warning';
+        }
+      }
+    }
+
+    yieldPercentage = curYield;
+    reactionRate = curRate;
+    statusText = state;
+    statusColorClass = statusClass;
+    
+    // Update live metrics UI
+    yieldVal.textContent = yieldPercentage;
+    rateVal.textContent = reactionRate.toFixed(3);
+    
+    // Pulse color updates
+    reactorPulse.className = `status-dot-pulse ${statusColorClass}`;
+    reactorStatus.textContent = statusText;
+    
+    // Feedback texts
+    if (yieldPercentage === 100) {
+      yieldFeedback.textContent = '✨ Perfect yield achieved!';
+      yieldFeedback.style.color = 'var(--cyan)';
+    } else if (yieldPercentage > 75) {
+      yieldFeedback.textContent = 'High output synthesis';
+      yieldFeedback.style.color = '#10b981';
+    } else if (yieldPercentage > 20) {
+      yieldFeedback.textContent = 'Moderate product collection';
+      yieldFeedback.style.color = 'var(--text-muted)';
+    } else if (yieldPercentage > 0) {
+      yieldFeedback.textContent = 'Trace product formed';
+      yieldFeedback.style.color = 'var(--gold-light)';
+    } else {
+      yieldFeedback.style.color = '#ef4444';
+      if (state.includes('Denatured') || state.includes('Decomposed')) {
+        yieldFeedback.textContent = 'Synthesis broken!';
+      } else {
+        yieldFeedback.textContent = 'No product formed';
+      }
+    }
+
+    if (reactionRate > 0.5) {
+      rateFeedback.textContent = 'High speed kinetics';
+      rateFeedback.style.color = 'var(--cyan)';
+    } else if (reactionRate > 0.08) {
+      rateFeedback.textContent = 'Stable reaction speed';
+      rateFeedback.style.color = 'var(--text-muted)';
+    } else if (reactionRate > 0) {
+      rateFeedback.textContent = 'Slow reaction kinetics';
+      rateFeedback.style.color = 'var(--gold-light)';
+    } else {
+      rateFeedback.textContent = 'Reaction halted';
+      rateFeedback.style.color = '#ef4444';
+    }
+  }
+
+  // Animation Particle System
+  let particles = [];
+  const particleCount = 25;
+  
+  // Pipeline path nodes for flow visualizer
+  const pathPoints = [
+    { x: 120, y: 150 }, // Up from Reactor
+    { x: 120, y: 70 },  // To Condenser inlet
+    { x: 380, y: 70 },  // Through Condenser
+    { x: 380, y: 220 }, // Down to Separator collector
+  ];
+
+  function initParticles() {
+    particles = [];
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        progress: Math.random(), // 0 to 1 along the path
+        size: Math.random() * 2 + 1.5,
+        offsetY: (Math.random() - 0.5) * 4, // slight variation in pipes
+        speedFactor: Math.random() * 0.4 + 0.8,
+      });
+    }
+  }
+
+  // Get coordinate at progress along pathPoints
+  function getPointOnPath(progress) {
+    const totalSegments = pathPoints.length - 1;
+    const segment = Math.min(Math.floor(progress * totalSegments), totalSegments - 1);
+    const segmentProgress = (progress * totalSegments) - segment;
+    
+    const p1 = pathPoints[segment];
+    const p2 = pathPoints[segment + 1];
+    
+    return {
+      x: p1.x + (p2.x - p1.x) * segmentProgress,
+      y: p1.y + (p2.y - p1.y) * segmentProgress
+    };
+  }
+
+  // Draw loop
+  let lastTime = 0;
+  function animate(timestamp) {
+    if (!lastTime) lastTime = timestamp;
+    const delta = (timestamp - lastTime) / 1000;
+    lastTime = timestamp;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    const config = presets[currentReaction];
+
+    // 1. Draw Piping Background Lines
+    ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+    ctx.lineWidth = 10;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.beginPath();
+    ctx.moveTo(pathPoints[0].x, pathPoints[0].y);
+    for (let i = 1; i < pathPoints.length; i++) {
+      ctx.lineTo(pathPoints[i].x, pathPoints[i].y);
+    }
+    ctx.stroke();
+
+    // Draw pipe inner core
+    ctx.strokeStyle = 'rgba(4,9,26,0.6)';
+    ctx.lineWidth = 6;
+    ctx.stroke();
+
+    // 2. Update and Draw Flow Particles (speed proportional to reaction rate)
+    if (reactionRate > 0) {
+      const baseSpeed = 0.15; // path progress units per second
+      const speed = baseSpeed * (reactionRate / config.maxRate) * 0.8;
+      
+      particles.forEach(p => {
+        p.progress += speed * p.speedFactor * delta;
+        if (p.progress > 1) {
+          p.progress = 0;
+        }
+
+        const pt = getPointOnPath(p.progress);
+        
+        ctx.fillStyle = config.particleColor;
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y + p.offsetY, p.size, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Glow on particles
+        ctx.shadowColor = config.particleColor;
+        ctx.shadowBlur = 4;
+        ctx.arc(pt.x, pt.y + p.offsetY, p.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0; // reset
+      });
+    }
+
+    // 3. Draw Reactor Core (X=120, Y=200, radius=45, height=90)
+    const rx = 120;
+    const ry = 200;
+    const rw = 54;
+    const rh = 90;
+    
+    // Draw Reactor outer frame
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.03)';
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+    ctx.lineWidth = 2.5;
+    
+    // Rounded capsule reactor shape
+    ctx.beginPath();
+    ctx.roundRect(rx - rw/2, ry - rh/2, rw, rh, 18);
+    ctx.fill();
+    ctx.stroke();
+
+    // Draw heating / cooling glow inside reactor
+    ctx.fillStyle = coreGlowColor;
+    ctx.beginPath();
+    ctx.roundRect(rx - rw/2 + 3, ry - rh/2 + 3, rw - 6, rh - 6, 15);
+    ctx.fill();
+
+    // Draw little floating process bubbles inside reactor
+    if (reactionRate > 0) {
+      ctx.fillStyle = 'rgba(255,255,255,0.2)';
+      for (let i = 0; i < 5; i++) {
+        const bx = rx + Math.sin(timestamp * 0.005 + i) * (rw/2 - 8);
+        const by = ry + rh/2 - 10 - ((timestamp * (0.02 + i * 0.005) + i * 20) % (rh - 20));
+        ctx.beginPath();
+        ctx.arc(bx, by, Math.random() * 1.5 + 1, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    // Label on reactor
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+    ctx.font = 'bold 9px var(--font-head)';
+    ctx.textAlign = 'center';
+    ctx.fillText('REACTOR', rx, ry + 4);
+
+    // 4. Draw Condenser Column (Horizontal tube X=150 to 350, Y=70)
+    const cx = 250;
+    const cy = 70;
+    const cw = 160;
+    const ch = 20;
+
+    // Condenser outer frame
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.roundRect(cx - cw/2, cy - ch/2, cw, ch, 4);
+    ctx.fill();
+    ctx.stroke();
+
+    // Draw cooling jacket spiral coil inside condenser
+    ctx.strokeStyle = 'rgba(6, 182, 212, 0.35)'; // cooling water blue
+    ctx.lineWidth = 2.2;
+    ctx.beginPath();
+    for (let x = cx - cw/2 + 8; x < cx + cw/2 - 8; x += 12) {
+      ctx.moveTo(x, cy - ch/2 + 3);
+      ctx.lineTo(x + 6, cy + ch/2 - 3);
+    }
+    ctx.stroke();
+
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
+    ctx.font = 'bold 8px var(--font-head)';
+    ctx.fillText('CONDENSER', cx, cy + 25);
+
+    // 5. Draw Separator Beaker (X=380, Y=220, width=44, height=75)
+    const sx = 380;
+    const sy = 220;
+    const sw = 48;
+    const sh = 70;
+
+    // Collector glass beaker
+    ctx.fillStyle = 'rgba(255,255,255,0.03)';
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.roundRect(sx - sw/2, sy - sh/2, sw, sh, [4, 4, 12, 12]);
+    ctx.fill();
+    ctx.stroke();
+
+    // Draw collected product fluid inside beaker (height grows with yield)
+    if (yieldPercentage > 0) {
+      const fluidHeight = sh * 0.75 * (yieldPercentage / 100);
+      const fluidY = sy + sh/2 - 3 - fluidHeight;
+      ctx.fillStyle = config.particleColor + '33'; // transparent particle color
+      ctx.beginPath();
+      ctx.roundRect(sx - sw/2 + 3, fluidY, sw - 6, fluidHeight, [0, 0, 9, 9]);
+      ctx.fill();
+
+      // Fluid surface line
+      ctx.strokeStyle = config.particleColor;
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(sx - sw/2 + 3, fluidY);
+      ctx.lineTo(sx + sw/2 - 3, fluidY);
+      ctx.stroke();
+    }
+
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+    ctx.font = 'bold 9px var(--font-head)';
+    ctx.fillText('COLLECTOR', sx, sy + 4);
+
+    requestAnimationFrame(animate);
+  }
+
+  // Start simulation
+  updatePresetLabels();
+  updateSimulation();
+  initParticles();
+  requestAnimationFrame(animate);
+})();
+
 
 

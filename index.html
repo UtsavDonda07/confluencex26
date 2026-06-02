@@ -194,6 +194,104 @@
     </div>
   </section>
 
+  <!-- ===== VIRTUAL CHEMLAB SIMULATOR ===== -->
+  <section id="chemlab" class="section chemlab-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Interactive Experiment</span>
+        <h2 class="section-title">Virtual <span class="highlight">ChemLab</span> Simulator</h2>
+        <p class="section-sub">Tune the reactor parameters (Temperature &amp; Catalyst) to synthesize compounds. Achieve 100% yield by matching optimal reaction kinetics!</p>
+      </div>
+      
+      <div class="chemlab-grid">
+        <!-- Controls Panel -->
+        <div class="chemlab-panel reveal">
+          <!-- Preset Buttons -->
+          <div class="glass-card chemlab-card">
+            <h3><i class="fa-solid fa-flask-vial"></i> 1. Select Reaction</h3>
+            <div class="reaction-presets">
+              <button class="preset-btn active" data-reaction="aspirin">
+                <i class="fa-solid fa-pills"></i> Aspirin Synthesis
+              </button>
+              <button class="preset-btn" data-reaction="hydrogen">
+                <i class="fa-solid fa-droplet-slash"></i> Green Hydrogen
+              </button>
+              <button class="preset-btn" data-reaction="ethanol">
+                <i class="fa-solid fa-seedling"></i> Bio-Ethanol
+              </button>
+            </div>
+            <div class="reaction-info">
+              <code id="reaction-equation">C₇H₆O₃ (Salicylic) + C₄H₆O₃ → C₉H₈O₄ (Aspirin) + CH₃COOH</code>
+              <p id="reaction-desc">Aspirin synthesis is moderately exothermic. Requires low-to-moderate temperature and acid catalyst concentration to prevent decomposition.</p>
+            </div>
+          </div>
+
+          <!-- Sliders -->
+          <div class="glass-card chemlab-card delay-1">
+            <h3><i class="fa-solid fa-sliders"></i> 2. Tune Reactor Parameters</h3>
+            <div class="slider-wrapper">
+              <div class="slider-header">
+                <span>Reaction Temperature</span>
+                <span class="slider-display"><span id="temp-val">80</span>°C</span>
+              </div>
+              <input type="range" id="temp-slider" min="30" max="500" value="80" class="chemlab-slider" />
+              <div class="slider-labels">
+                <span>30°C</span>
+                <span id="temp-opt-label" class="opt-indicator">Target: 75°C</span>
+                <span>500°C</span>
+              </div>
+            </div>
+
+            <div class="slider-wrapper">
+              <div class="slider-header">
+                <span>Catalyst Concentration</span>
+                <span class="slider-display"><span id="cat-val">30</span>%</span>
+              </div>
+              <input type="range" id="cat-slider" min="0" max="100" value="30" class="chemlab-slider" />
+              <div class="slider-labels">
+                <span>0% (None)</span>
+                <span id="cat-opt-label" class="opt-indicator">Target: 35%</span>
+                <span>100% (Pure)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visualizer Canvas & Metrics -->
+        <div class="chemlab-visualizer reveal delay-1">
+          <!-- Live Canvas -->
+          <div class="glass-card visualizer-card">
+            <div class="visualizer-header">
+              <span class="status-dot-pulse active" id="reactor-pulse"></span>
+              <span class="status-text" id="reactor-status">Reactor Operating: Stable</span>
+            </div>
+            <div class="canvas-container">
+              <canvas id="reactorCanvas" width="540" height="300"></canvas>
+            </div>
+          </div>
+
+          <!-- Yield Metrics Row -->
+          <div class="metrics-grid">
+            <div class="glass-card metric-card">
+              <span class="metric-title">Product Yield</span>
+              <div class="metric-value-wrap">
+                <span class="metric-num" id="yield-val">0</span><span class="metric-unit">%</span>
+              </div>
+              <span class="metric-sub" id="yield-feedback">Need optimal parameters to start</span>
+            </div>
+            <div class="glass-card metric-card">
+              <span class="metric-title">Reaction Rate</span>
+              <div class="metric-value-wrap">
+                <span class="metric-num" id="rate-val">0.0</span><span class="metric-unit"> mol/L·s</span>
+              </div>
+              <span class="metric-sub" id="rate-feedback">Reaction inactive</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== TIMELINE ===== -->
   <section id="timeline" class="section timeline-section">
     <div class="container">
