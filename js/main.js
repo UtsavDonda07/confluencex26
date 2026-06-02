@@ -492,38 +492,75 @@
 console.log('%cConfluenceX\'26 🚀 Next Generation of Chemical Innovation', 'color:#7c3aed;font-size:14px;font-weight:bold;');
 
 /* ============================================
-   VISITOR COUNTER — hits.sh API
+   VISITOR COUNTER — hits.sh API + Smooth Animation
    ============================================ */
 (function initVisitorCounter() {
   const el = document.getElementById('visitorCount');
   if (!el) return;
 
-  // hits.sh JSON API — counts every page load automatically
+  /**
+   * Animate a number counting up from 0 to `target`.
+   * Uses cubic ease-out so it starts fast and slows
+   * right down at the end — making the last digits
+   * clearly visible one by one (7… 8… 9… 10).
+   */
+  function animateCount(target) {
+    if (target <= 0) { el.textContent = '0'; return; }
+
+    // Duration: slow for small numbers, capped for large ones
+    const duration = target <= 20
+      ? target * 160          // ~160ms per digit for tiny counts
+      : target <= 100
+        ? target * 60         // ~60ms per digit for small counts
+        : Math.min(3000, 1200 + target * 2); // max 3s for big counts
+
+    const startTime = performance.now();
+
+    // Cubic ease-out: t=0→fast, t=1→slow
+    function easeOutCubic(t) {
+      return 1 - Math.pow(1 - t, 3);
+    }
+
+    function tick(now) {
+      const elapsed  = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased    = easeOutCubic(progress);
+      const current  = Math.round(eased * target);
+
+      el.textContent = current.toLocaleString('en-IN');
+
+      // Tiny glow flash on every integer change
+      el.style.textShadow = '0 0 12px rgba(168,85,247,0.9)';
+      setTimeout(() => { el.style.textShadow = ''; }, 60);
+
+      if (progress < 1) {
+        requestAnimationFrame(tick);
+      } else {
+        // Final value — make sure it's exact
+        el.textContent = target.toLocaleString('en-IN');
+        el.style.textShadow = '0 0 20px rgba(6,182,212,0.8)';
+        setTimeout(() => { el.style.textShadow = ''; }, 400);
+      }
+    }
+
+    // Short delay so user sees "0" first, then animation fires
+    el.textContent = '0';
+    setTimeout(() => requestAnimationFrame(tick), 300);
+  }
+
+  // hits.sh JSON API — auto-increments on every real page load
   fetch('https://hits.sh/UtsavDonda07.github.io/confluencex26.json')
     .then(res => {
-      if (!res.ok) throw new Error('Network response not ok');
+      if (!res.ok) throw new Error('API error');
       return res.json();
     })
     .then(data => {
-      const total = data.count || data.total || 0;
-      if (!total) { el.textContent = '1'; return; }
-
-      // Animate count roll-up
-      let current = 0;
-      const duration = 1600;
-      const step = total / (duration / 16);
-      const timer = setInterval(() => {
-        current += step;
-        if (current >= total) {
-          current = total;
-          clearInterval(timer);
-        }
-        el.textContent = Math.floor(current).toLocaleString('en-IN');
-      }, 16);
+      const total = parseInt(data.count || data.total || data.value || 0, 10);
+      animateCount(total > 0 ? total : 1);
     })
     .catch(() => {
-      // Silently show dash if API unreachable
       el.textContent = '—';
     });
 })();
+
 
