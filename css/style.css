@@ -1606,17 +1606,18 @@ html, body { overflow-x: hidden; }
   /* === NAV === */
   .hamburger { display: flex; }
   .nav-links {
+    display: flex;
     position: fixed;
     top: var(--nav-h);
     left: 0; right: 0;
-    bottom: 0;
+    height: calc(100vh - var(--nav-h));
     background: rgba(4, 9, 26, 0.98);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     flex-direction: column;
     padding: 20px 16px;
     gap: 4px;
-    transform: translateY(-110%);
+    transform: translateY(-115%);
     opacity: 0;
     transition: var(--transition);
     border-bottom: 1px solid var(--glass-border);

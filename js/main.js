@@ -320,7 +320,8 @@
     document.body.style.overflow = '';
   }
 
-  btn.addEventListener('click', () => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
     const isOpen = menu.classList.contains('open');
     if (isOpen) {
       closeMenu();
@@ -339,7 +340,7 @@
 
   // Close on outside click
   document.addEventListener('click', (e) => {
-    if (!btn.contains(e.target) && !menu.contains(e.target)) {
+    if (menu.classList.contains('open') && !menu.contains(e.target)) {
       closeMenu();
     }
   });
