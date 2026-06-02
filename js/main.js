@@ -492,75 +492,96 @@
 console.log('%cConfluenceX\'26 🚀 Next Generation of Chemical Innovation', 'color:#7c3aed;font-size:14px;font-weight:bold;');
 
 /* ============================================
-   VISITOR COUNTER — hits.sh API + Smooth Animation
+   VISITOR COUNTER — Abacus API with Session Deduplication
    ============================================ */
 (function initVisitorCounter() {
-  const el = document.getElementById('visitorCount');
-  if (!el) return;
+  const countEl = document.getElementById('visitorCount');
+  if (!countEl) return;
 
-  /**
-   * Animate a number counting up from 0 to `target`.
-   * Uses cubic ease-out so it starts fast and slows
-   * right down at the end — making the last digits
-   * clearly visible one by one (7… 8… 9… 10).
-   */
-  function animateCount(target) {
-    if (target <= 0) { el.textContent = '0'; return; }
+  const namespace = 'confluencex26-vgec';
+  const key = 'unique-visits-v1';
+  const offset = 40; // Maintain the current 42+ visits history
 
-    // Duration: slow for small numbers, capped for large ones
-    const duration = target <= 20
-      ? target * 160          // ~160ms per digit for tiny counts
-      : target <= 100
-        ? target * 60         // ~60ms per digit for small counts
-        : Math.min(3000, 1200 + target * 2); // max 3s for big counts
-
-    const startTime = performance.now();
-
-    // Cubic ease-out: t=0→fast, t=1→slow
-    function easeOutCubic(t) {
-      return 1 - Math.pow(1 - t, 3);
+  // Check if we already registered a hit during this user session (e.g. within 30 minutes in localStorage)
+  const lastVisitTime = localStorage.getItem('confluencex26_last_visit_time');
+  const now = Date.now();
+  const sessionDuration = 30 * 60 * 1000; // 30 minutes in milliseconds
+  
+  let isNewVisit = true;
+  if (lastVisitTime) {
+    const elapsed = now - parseInt(lastVisitTime, 10);
+    if (!isNaN(elapsed) && elapsed < sessionDuration) {
+      isNewVisit = false;
     }
-
-    function tick(now) {
-      const elapsed  = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased    = easeOutCubic(progress);
-      const current  = Math.round(eased * target);
-
-      el.textContent = current.toLocaleString('en-IN');
-
-      // Tiny glow flash on every integer change
-      el.style.textShadow = '0 0 12px rgba(168,85,247,0.9)';
-      setTimeout(() => { el.style.textShadow = ''; }, 60);
-
-      if (progress < 1) {
-        requestAnimationFrame(tick);
-      } else {
-        // Final value — make sure it's exact
-        el.textContent = target.toLocaleString('en-IN');
-        el.style.textShadow = '0 0 20px rgba(6,182,212,0.8)';
-        setTimeout(() => { el.style.textShadow = ''; }, 400);
-      }
-    }
-
-    // Short delay so user sees "0" first, then animation fires
-    el.textContent = '0';
-    setTimeout(() => requestAnimationFrame(tick), 300);
   }
 
-  // hits.sh JSON API — auto-increments on every real page load
-  fetch('https://hits.sh/UtsavDonda07.github.io/confluencex26.json')
-    .then(res => {
-      if (!res.ok) throw new Error('API error');
-      return res.json();
+  // Choose API endpoint: increment (hit) on new visit, or just get (get) on refresh
+  const action = isNewVisit ? 'hit' : 'get';
+  const apiUrl = `https://abacus.jasoncameron.dev/${action}/${namespace}/${key}`;
+
+  // Update last visit time on page load to slide the 30-min session window
+  localStorage.setItem('confluencex26_last_visit_time', now.toString());
+
+  // Use cached count as fallback
+  let cachedCount = parseInt(localStorage.getItem('confluencex26_last_count'), 10) || (offset + 2);
+  countEl.textContent = '—';
+
+  fetch(apiUrl)
+    .then(response => {
+      if (!response.ok) throw new Error('API response error');
+      return response.json();
     })
     .then(data => {
-      const total = parseInt(data.count || data.total || data.value || 0, 10);
-      animateCount(total > 0 ? total : 1);
+      if (data && typeof data.value === 'number') {
+        const total = data.value + offset;
+        localStorage.setItem('confluencex26_last_count', total.toString());
+        animateCountUp(countEl, total);
+      } else {
+        throw new Error('Invalid data format');
+      }
     })
-    .catch(() => {
-      el.textContent = '—';
+    .catch(err => {
+      console.warn('Visitor counter error, using fallback:', err);
+      animateCountUp(countEl, cachedCount);
     });
+
+  // Smooth Ease-Out Count Up Animation
+  function animateCountUp(el, total) {
+    el.style.textShadow = 'none';
+    
+    // Animate from 0 for small numbers, or from 85% of total for larger numbers
+    let start = 0;
+    if (total > 50) {
+      start = Math.floor(total * 0.85);
+    }
+    
+    const duration = 2000; // 2 seconds
+    const startTime = performance.now();
+    
+    function update(timestamp) {
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // cubic ease-out
+      const easeProgress = 1 - Math.pow(1 - progress, 3);
+      const current = Math.floor(start + (total - start) * easeProgress);
+      
+      el.textContent = current.toLocaleString('en-IN');
+      
+      // Subtle pulse/glow while counting
+      if (progress < 1) {
+        el.style.textShadow = '0 0 5px rgba(124,58,237,0.3)';
+        requestAnimationFrame(update);
+      } else {
+        el.textContent = total.toLocaleString('en-IN');
+        // Final purple-cyan glow finish
+        el.style.textShadow = '0 0 10px rgba(124,58,237,0.6), 0 0 20px rgba(6,182,212,0.4)';
+      }
+    }
+    
+    requestAnimationFrame(update);
+  }
 })();
+
 
 
