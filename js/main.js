@@ -500,7 +500,7 @@ console.log('%cConfluenceX\'26 🚀 Next Generation of Chemical Innovation', 'co
 
   const namespace = 'confluencex26-vgec';
   const key = 'unique-visits-v1';
-  const offset = 40; // Maintain the current 42+ visits history
+  const offset = 0; // Start count fresh from the API without offset
 
   // Check if we already registered a hit during this user session (e.g. within 30 minutes in localStorage)
   const lastVisitTime = localStorage.getItem('confluencex26_last_visit_time');
