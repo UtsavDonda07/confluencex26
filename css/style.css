@@ -1363,7 +1363,7 @@ button { cursor: pointer; border: none; background: none; }
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--primary-light);
+  color: #ffffff;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -1373,12 +1373,12 @@ button { cursor: pointer; border: none; background: none; }
   padding: 12px;
   background: #fff;
   border-radius: 14px;
-  box-shadow: 0 0 0 3px rgba(124,58,237,0.3), 0 8px 32px rgba(0,0,0,0.4);
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.15), 0 8px 32px rgba(0,0,0,0.4);
   transition: var(--transition);
 }
 .qr-img-wrap:hover {
   transform: scale(1.04);
-  box-shadow: 0 0 0 4px var(--primary), 0 12px 40px rgba(124,58,237,0.3);
+  box-shadow: 0 0 0 4px #ffffff, 0 12px 40px rgba(255,255,255,0.25);
 }
 .qr-img { display: block; border-radius: 6px; }
 .qr-right { flex: 1; }
@@ -1405,7 +1405,7 @@ button { cursor: pointer; border: none; background: none; }
 }
 .qr-num {
   width: 26px; height: 26px;
-  background: linear-gradient(135deg, var(--primary), var(--cyan));
+  background: #ffffff;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1413,7 +1413,7 @@ button { cursor: pointer; border: none; background: none; }
   font-family: var(--font-head);
   font-size: 0.78rem;
   font-weight: 800;
-  color: #fff;
+  color: var(--bg-dark);
   flex-shrink: 0;
 }
 
