@@ -490,3 +490,40 @@
 })();
 
 console.log('%cConfluenceX\'26 🚀 Next Generation of Chemical Innovation', 'color:#7c3aed;font-size:14px;font-weight:bold;');
+
+/* ============================================
+   VISITOR COUNTER — hits.sh API
+   ============================================ */
+(function initVisitorCounter() {
+  const el = document.getElementById('visitorCount');
+  if (!el) return;
+
+  // hits.sh JSON API — counts every page load automatically
+  fetch('https://hits.sh/UtsavDonda07.github.io/confluencex26.json')
+    .then(res => {
+      if (!res.ok) throw new Error('Network response not ok');
+      return res.json();
+    })
+    .then(data => {
+      const total = data.count || data.total || 0;
+      if (!total) { el.textContent = '1'; return; }
+
+      // Animate count roll-up
+      let current = 0;
+      const duration = 1600;
+      const step = total / (duration / 16);
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= total) {
+          current = total;
+          clearInterval(timer);
+        }
+        el.textContent = Math.floor(current).toLocaleString('en-IN');
+      }, 16);
+    })
+    .catch(() => {
+      // Silently show dash if API unreachable
+      el.textContent = '—';
+    });
+})();
+
